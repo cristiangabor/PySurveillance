@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<PySurveillance>
+	<NAME>pysurveillance - script for linux webcam surveillance system</NAME>
+	<SYNOPSIS>pysurveillance OPTION... NAME
+        pysurveillance NAME
+  </SYNOPSIS>
+	<DESCRIPTION>Record video on your local hard-drive. If specified, also stream the video over internet.
+
+          -v
+              show the current version
+  </DESCRIPTION>
+  <COPYRIGHT>Copyright © 2016 Free Software Foundation, Inc.  License GPLv3+: GNU GPL version 3 or later http://gnu.org/licenses/gpl.html.
+        This is free software: you are free to change and redistribute it.  There is NO WARRANTY, to the extent permitted by law.</COPYRIGHT>
+</PySurveillance>

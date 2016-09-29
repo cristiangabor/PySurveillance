@@ -1,0 +1,5 @@
+Find out the process
+
+ps aux | grep python_program_name
+
+kill -KILL PID_of_target_process
