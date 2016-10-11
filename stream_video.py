@@ -4,11 +4,17 @@ import sys
 import subprocess as sp
 
 
-cap=cv2.VideoCapture(0) # Make a VideoCapture object. The 0 is the argument for the cammera
+cap=cv2.VideoCapture(1) # Make a VideoCapture object. The 0 is the argument for the cammera
 
 
 
 fps=str(cap.get(cv2.CAP_PROP_FPS)) # get the frames per second from the opencv
+
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920);
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080);
+
+heigtcv2=cap.get(cv2.CAP_PROP_FRAME_WIDTH)
+print('cvlibrary:',heigtcv2)
 print(fps)                         # print it to screen
 f_format='brg24'                   # defy the color scheme
 ret,frame=cap.read()               # read one frame
@@ -17,23 +23,30 @@ print(h,w,ch)                      # print them
 dimension='{}x{}'.format(w,h)      # merge those two dimensions
 FFMPEG='ffmpeg'                    # defy the Ffmpeg arguments
 
-command=[FFMPEG,
-        '-re',                     # this argument is for updating the existent video file (optional)
-        '-f', 'rawvideo',          # the format. In this case thakes the raw format from opencv
-        '-c:v','rawvideo',         # the video codec is not defined. It takes the raw format from frames
-        '-s', dimension,           # the dimenisons of the frame
-        '-pix_fmt', 'bgr24',       # pixel format
-        '-r', '24',                # frame rate
-        '-i', '-',                 # it takes the video input from a pipe
-        '-an',                     # for now, it takes only the video from the opencv
-        '-c:v', 'libx264',         # is making the video conversion into the specified fromat
-        '-b:v', '5000k','-f',      # the bitrate (5000k)
-        'flv',
-        'rtmp://localhost/myapp/mystream']              # the video file name
+def profile(FFMPEG,dimension):
+    # profile1 = stream the h.264 video
+    profile.profile1=[FFMPEG,
+            '-re',                                # this argument is for updating the existent video file (optional)
+            '-f', 'rawvideo',                     # the format. In this case thakes the raw format from opencv
+            '-c:v','rawvideo',                    # the video codec is not defined. It takes the raw format from frames
+            '-s',dimension,                       # the dimenisons of the frame
+            '-pix_fmt','bgr24',                   # pixel format
+            '-r','24',                            # frame rate
+            '-i','-',                             # it takes the video input from a pipe
+            '-an',                                # for now, it takes only the video from the opencv
+            '-c:v', 'libx264',                    # is making the video conversion into the specified fromat
+            '-b:v', '5000k','-f',                 # the bitrate (5000k)
+            'flv',                                # output format is flv
+            'rtmp://localhost/myapp/mystream']    # stream the video output
+
+    profile.profile2=[FFMPEG,]
+
+profile(FFMPEG,dimension)
+
 
 
 # Defy the process and link the stdin and sterr trought an external pipe
-proces=sp.Popen(command, stdin=sp.PIPE, stderr=sp.PIPE)
+proces=sp.Popen(profile.profile1, stdin=sp.PIPE, stderr=sp.PIPE)
 
 while (True):
 	# Capture frame-by-frame
