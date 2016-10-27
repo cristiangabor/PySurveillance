@@ -1,0 +1,21 @@
+* {
+    box-sizing: border-box;
+}
+.navbar{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 0;
+  border-radius: 5px;
+  margin-bottom: 0;
+  font-size: 20px;
+  letter-spacing: 3px;
+}
+.nav.navbar-nav{
+  color:white;
+}
+.navbar-nav li a:hover {
+    color: #1abc9c !important;
+}
+.navbar.navbar-default{
+  background-color:#7D4427 ;
+}
